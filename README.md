@@ -1,3 +1,31 @@
+
+
+# League Customizations
+
+While this project performs its stated goal, it is best if it is run in an environment that limits potential security risks. Rather than install this locally on one's machine, we Dockerize the application so it runs in isolation. This also helps make running this application super simple to use as there is nothing to install other than docker.
+
+```sh
+# Reset to beginning state:
+docker stop $(docker ps -a -q)
+docker system prune -a
+
+# Build and run the docker container:
+docker build --rm -t redis-full-check .
+docker run -it --entrypoint /bin/bash redis-full-check
+
+# Usage while in the container:
+./redis-full-check -s <source_host>:6379 -t <target_host>:6379
+
+# To check results:
+sqlite3 result.db.3
+select * from key;
+```
+
+
+
+# *** BELOW ARE THE ORIGINAL NOTES ***
+
+
 Redis-full-check is used to compare whether two redis have the same data. We also offer a data synchronization tool called [redis-shake](https://github.com/aliyun/redis-shake) to syncing data from one redis to another redis.<br>
 Thanks to the Douyu's WSD team for the support. <br>
 
